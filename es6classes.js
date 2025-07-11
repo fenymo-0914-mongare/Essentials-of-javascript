@@ -92,3 +92,48 @@ function useThis(){
 }
 
 useThis()
+
+function PrivateMembers(){
+  // using symbol
+  const _name=Symbol()
+  const _code=Symbol()
+  class Programmer{
+    constructor(name,language){
+      //use underscore for naming convention
+      this._language=language
+      //More private but accessible thru reflection
+      this[_name]=name
+    }
+    [_code](){
+      console.log(`${this.name} is coding ${this._language}`)
+    }
+  }
+  const prog=new Programmer("Aimee","JS")
+  console.log(prog._language)
+  const nameSymbol=Object.getOwnPropertySymbols(prog)[0]
+  console.log(prog[nameSymbol])
+
+  //Truly private members using octoThorpe(#)
+  
+  class Grocery{
+    #itemQuantity
+    constructor(itemName,itemQuantity){
+      this.itemName=itemName
+      this.#itemQuantity=itemQuantity
+    }
+    #display() {
+      console.log(`${this.itemName} has remained exactly ${this.#itemQuantity}`)
+    }
+    getItemQuantity() {
+      return this.#itemQuantity;
+    }
+  }
+  
+  const item=new Grocery("Apples",'23')
+  console.log(item);
+  console.log(`Item Quantity: ${item.getItemQuantity()}`);
+  
+  
+}
+
+PrivateMembers()
