@@ -255,3 +255,33 @@ function GettersSetters(){
 }
 
 GettersSetters()
+
+function Inheritance(){
+  class Programmer{
+    constructor(name){
+      this.name=name
+    }
+    code(){
+      console.log(`${this.name} is coding a lot.`)
+    }
+  }
+
+  class FrontEnd extends Programmer{
+    constructor(name,tools){
+      super(name)
+      this.tools=tools
+    }
+    code(){
+      super.code()
+      console.log(`${this.name} codes with ${this.tools}`)
+    }
+    design(){
+      console.log(`${this.name} designs UI using ${this.tools}`)
+    }
+  }
+
+  const progI=new FrontEnd ("Marcos","Next.js")
+  progI.code()
+  progI.design()
+}
+Inheritance()
