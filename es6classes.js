@@ -105,7 +105,7 @@ function PrivateMembers(){
       this[_name]=name
     }
     [_code](){
-      console.log(`${this.name} is coding ${this._language}`)
+      console.log(`${this[_name]} is coding ${this._language}`)
     }
   }
   const prog=new Programmer("Aimee","JS")
@@ -133,7 +133,54 @@ function PrivateMembers(){
   console.log(item);
   console.log(`Item Quantity: ${item.getItemQuantity()}`);
   
-  
+  //Sample
+  class GroceryItems{
+  #name
+  #quantity
+    constructor(name,quantity){
+      this.#name=name
+      this.#quantity=quantity
+    }
+    displayItem(){
+      console.log(`Name:${this.#name}-Quantity:${this.#quantity}`)
+    }
+    getName() {
+      return this.#name;
+    }
+    getDisplayString() {
+      return `Name:${this.#name}-Quantity:${this.#quantity}`;
+    }
+  }
+  class GroceryList{
+    #items
+    constructor(){
+      this.#items=[]
+    }
+    addItem(name, quantity) {
+      const item = new GroceryItems(name, quantity);
+      this.#items.push(item);
+    }
+    removeItem(name){
+      this.#items = this.#items.filter(item => {
+        // Use a temporary variable to capture the name
+        // Since #name is private, add a public getter
+        return item.getName() !== name;
+      });
+    }
+    displayList(){
+      // Collect display strings in an array and join them
+      return this.#items.map(item => {
+        // Add a public getter for display string
+        return item.getDisplayString();
+      }).join('\n');
+    }
+  }
+
+  const groceryItem= new GroceryList()
+  groceryItem.addItem("Apples",9)
+
+  console.log(groceryItem.displayList())
+
 }
 
 PrivateMembers()
