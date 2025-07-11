@@ -180,7 +180,78 @@ function PrivateMembers(){
   groceryItem.addItem("Apples",9)
 
   console.log(groceryItem.displayList())
+  function weakMap(){
+    //Using WeakMap for private members
+    const _language = new WeakMap();
+    const _work = new WeakMap();
+    class Programmer {
+      constructor(name, language) {
+        this.name = name;
+        // Store private members in WeakMap
+        _language.set(this, {language});
 
+        _work.set(this,()=> {
+        console.log(`${this.name} is coding in ${_language.get(this).language}`);
+        })
+      }
+      code() {
+        // Access private member from WeakMap
+        _work.get(this)()
+      }
+    }
+    const prog = new Programmer("Aimee", "JavaScript");
+    prog.code();
+  }
+  weakMap()
+  const privateProps=new WeakMap()
+  class GroceryShop{
+    constructor(name,quantity){
+      privateProps.set(this,{
+        name:name,
+        quantity:quantity,
+        work: (() => {
+          console.log(`${name} has quantity ${quantity}`);
+        })
+      });
+    }
+    display(){
+      privateProps.get(this).work();
+    }
+  }
+
+  const GroceryItem=new GroceryShop("Apples",9)
+  GroceryItem.display()
+  // commonly used to maintain super API Boundaries
+  //  enhance data encapsulation and security preventing data to accessed only inside the class
+  // Weakmap prevent memory leaks by ensuring garbage collected with no reference
 }
 
 PrivateMembers()
+
+function GettersSetters(){
+  const _language = new WeakMap();
+  const _work = new WeakMap();
+
+  class Programmer {
+    constructor(name, language) {
+      this.name = name;
+      _language.set(this, language);
+    }
+    //Getters
+    get language(){
+      return _language.get(this)
+    }
+    //Setters
+    set language(newLanguage){
+      if(!newLanguage) throw new Error("Language cannot be empty")
+      _language.set(this,newLanguage)
+    }
+  }
+
+  const prog = new Programmer("Carla", "JavaScript");
+  console.log(prog.language)
+  console.log(prog.language="Python")
+
+}
+
+GettersSetters()
