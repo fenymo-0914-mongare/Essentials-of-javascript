@@ -1,0 +1,10 @@
+{
+  "Name":"John Doe",
+  "age":20,
+  "email":"jodoe@gmail.com",
+  "hobbies":["Reading","Cooking"],
+  "address":{
+    "city":"New York",
+    "ID":"jsx str"
+  }
+}
