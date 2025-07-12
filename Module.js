@@ -18,3 +18,13 @@ export function setSkills(programmer,skills){
 export function getSkills(programmer){
  return programmerSkills.get(programmer)
 }
+
+export default class GroceryItem{
+  constructor(name,quantity){
+   this.name=name
+   this.quantity=quantity
+  }
+  display(){
+   console.log(`${this.name} x ${this.quantity}`)
+  }
+ }
