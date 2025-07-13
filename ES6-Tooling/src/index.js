@@ -14,3 +14,6 @@ export class Programmer{
   return this.#experience
  }
 }
+
+const dev=new Programmer("Marx","ES6",6)
+dev.develop()
