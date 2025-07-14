@@ -1,27 +1,38 @@
-//Callbacks
-console.log("Before")
-// getGroceryItem(1, (groceryItem) => {
-//  console.log(groceryItem)
-// })
-console.log("after")
+getGroceryList(1)
+ .then(list=>getGroceryItem(list.id))
+ .then(items=>checkAvailability(items[0]))
+ .then(availability=>console.log("Availability",availability))
+ .catch(err=>console.error(err))
 
-getGroceryList(1,(grocery)=>{
- console.log('Grocery List:',grocery)
- getGroceryItem(grocery.id,(items)=>{
-  console.log('Items:',items)
- })
-})
 
-function getGroceryList(id,callback){
- setTimeout(()=>{
+function getGroceryList(id){
+  return new Promise((resolve)=>{
+   setTimeout(()=>{
   console.log('Fetching grocery list from the Database...')
-  callback({id:id,items:['apples','bananas','bread']})
+  resolve({id:id,items:['apples','bananas','bread']})
  },2000)
+  })
 }
-function getGroceryItem(id, callback) {
- setTimeout(() => {
-  console.log("Reading the grocery Item from the Database...")
-  console.log("Displaying the details:")
-  callback(['apples','bananas','bread'])
- },3000)
+function getGroceryItem(id) {
+ return new Promise((resolve)=>{
+  setTimeout(() => {
+  console.log("Reading the grocery Item from the Database...");
+  // Simulate fetching item by id (for demonstration, just return the item at index id)
+  const items = ['apples', 'bananas', 'bread'];
+  if (typeof id === 'number' && id >= 0 && id < items.length) {
+    resolve([items[id]]);
+  }},2000)
+ })
+ }
+function checkAvailability(item){
+ return new Promise((resolve)=>{
+  setTimeout(()=>{
+  console.log(`Checking availability of the item in the store`);
+  resolve(true) 
+ },2000);
+ })
+ 
 }
+
+
+
